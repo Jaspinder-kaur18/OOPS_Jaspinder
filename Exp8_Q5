@@ -1,0 +1,33 @@
+5- 
+
+
+import java.util.*;
+
+class SeatAlreadyBookedException extends Exception {
+    SeatAlreadyBookedException(String message) {
+        super(message);
+    }
+}
+
+public class Main {
+
+    static Set<Integer> bookedSeats = new HashSet<>();
+
+    public static void bookSeat(int seatNumber) throws SeatAlreadyBookedException {
+        if (bookedSeats.contains(seatNumber)) {
+            throw new SeatAlreadyBookedException("Seat " + seatNumber + " is already booked!");
+        } else {
+            bookedSeats.add(seatNumber);
+            System.out.println("Seat " + seatNumber + " booked successfully.");
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            bookSeat(5); // First attempt - success
+            bookSeat(5); // Second attempt - exception
+        } catch (SeatAlreadyBookedException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
